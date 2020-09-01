@@ -22,3 +22,32 @@ function university_features()
     register_nav_menu('footerMenuLocation2', 'Footer Menu Location2');
 }
 add_action('after_setup_theme', 'university_features');
+
+//Customize File
+require get_template_directory() . '/customizer.php';
+//add datepicker options
+function add_my_scripts($scripts)
+{
+    wp_enqueue_script('jquery-ui-datepicker');
+}
+add_action('wp_enqueue_scripts', 'add_my_scripts');
+
+
+function university_adjust_queries($query)
+{
+    $today = date('Ymd');
+    if (!is_admin() and is_post_type_archive('event') and $query->is_main_query()) {
+        $query->set('meta_key', 'event_date');
+        $query->set('orderby', 'meta_value_num');
+        $query->set('order', 'ASC');
+        $query->set('meta_query', array(
+            array(
+                'key' => 'event_date',
+                'compare' => '>=',
+                'value' => $today,
+                'type' => 'numeric'
+            )
+        ));
+    }
+}
+add_action('pre_get_posts', 'university_adjust_queries');
