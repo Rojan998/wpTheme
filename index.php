@@ -20,7 +20,7 @@ get_header();
         </div>
 
         <div class="metabox">
-            <p>Poster by: <?php the_author_posts_link(); ?> on <?php the_time('l, F-j, Y') ?> in <?php echo get_the_category_list(', ') ?></p>
+            <p>Posted by: <?php the_author_posts_link(); ?> on <?php the_time('l, F-j, Y') ?> in <?php echo get_the_category_list(', ') ?></p>
         </div>
         <div class="generic-content">
             <?php the_excerpt(); ?>

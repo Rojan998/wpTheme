@@ -82,6 +82,37 @@ function university_customizer_register($wp_customize)
         'section' => 'showcase',
         'priority' => 6
     ));
+
+    // New Customizer setting for Slider
+
+    $wp_customize->add_section('showcase_slider', array(
+        'title' => __('Slider', 'wpbootstrap'),
+        'description' => sprintf(__('Options for showcase', 'university')),
+        'priority' => 130
+
+    ));
+
+    //adds setting for slider remove
+    $wp_customize->add_setting('slider_remove', array(
+        'default' => 'yes',
+        'type' => 'theme_mod',
+        'transport' => 'refresh',
+        'capability' => 'edit_theme_options',
+        'sanitize_callback' => 'esc_attr'
+
+
+    ));
+    // adding control for removing the slider
+    $wp_customize->add_control('slider_remove', array(
+        'label' => __('Show Slider ?', 'university'),
+        'type' => 'radio',
+        'section' => 'showcase_slider',
+        'choices' => array(
+            'yes' => 'Yes',
+            'no' => 'No'
+        ),
+        'priority' => 1
+    ));
 }
 
 add_action('customize_register', 'university_customizer_register');
